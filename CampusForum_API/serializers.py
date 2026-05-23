@@ -24,3 +24,12 @@ class ProfilesAllSerializer(serializers.ModelSerializer):
         model = Profiles
         fields = '__all__'
         depth = 1
+
+# Creamos un serializer para el modelo Post
+class PostSerializer(serializers.ModelSerializer):
+    author = serializers.PrimaryKeyRelatedField(
+            queryset=User.objects.all()
+        )
+    class Meta:
+        model = Post
+        fields = '__all__'

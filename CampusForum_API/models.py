@@ -17,3 +17,24 @@ class Profiles(models.Model):
 
     def __str__(self):
         return "Perfil del usuario "+self.usuario.first_name+" "+self.usuario.last_name
+    
+#Creamos un modelo para representar las publicaciones en el foro    
+class Post(models.Model):
+    id = models.BigAutoField(primary_key=True)
+
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='posts'
+    )
+
+    title = models.CharField(max_length=255)
+
+    content = models.TextField()
+
+    creation = models.DateTimeField(auto_now_add=True)
+
+    update = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title

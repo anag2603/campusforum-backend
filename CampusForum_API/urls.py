@@ -18,6 +18,7 @@ from django.urls import path
 from CampusForum_API.views import bootstrap
 from CampusForum_API.views import users
 from CampusForum_API.views import auth
+from CampusForum_API.views import posts
 
 urlpatterns = [
     #Version
@@ -29,5 +30,9 @@ urlpatterns = [
     #Login
         path('token/', auth.CustomAuthToken.as_view()),
     #Logout
-        path('logout/', auth.Logout.as_view())
+        path('logout/', auth.Logout.as_view()),
+    #Posts
+        path('posts/', posts.PostsView.as_view()),
+        path('posts/<int:pk>/', posts.PostDetailView.as_view())
 ]
+
