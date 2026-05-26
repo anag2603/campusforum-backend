@@ -25,11 +25,41 @@ class ProfilesAllSerializer(serializers.ModelSerializer):
         fields = '__all__'
         depth = 1
 
-# Creamos un serializer para el modelo Post
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
+
 class PostSerializer(serializers.ModelSerializer):
-    author = serializers.PrimaryKeyRelatedField(
-            queryset=User.objects.all()
-        )
+
+    author = UserSerializer(read_only=True)
+
+    author_id = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(),
+        source='author',
+        write_only=True
+    )
+
+    categoria = CategorySerializer(read_only=True)
+
+    categoria_id = serializers.PrimaryKeyRelatedField(
+        queryset=Category.objects.all(),
+        source='categoria',
+        write_only=True
+    )
+
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = [
+        'id',
+        'title',
+        'content',
+        'categoria',
+        'categoria_id',
+        'etiquetas',
+        'estado',
+        'author',
+        'author_id',
+        'creation',
+        'update'
+        ]
